@@ -226,31 +226,42 @@ public class Game_World {
       new Game_Classes.WorldV2()
         .setLayout(
           new String[] {
-            "████████████████████",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢K¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
+            "████████████ ███████",
+            "█     ¢¢█¢¢█¢¢¢¢¢¢K█",
+            "█ █   █¢¢¢¢█¢█¢    █",
+            "█   ██████¢█¢█¢    █",
+            "█   █¢¢¢¢¢¢█¢█¢█████",
+            "█████¢████ █¢█¢¢¢¢¢█",
+            "█   █¢¢¢¢¢¢¢¢█    ¢█",
+            "█ █ ██████████████¢█",
+            " ¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
+            "██¢████████████ ████",
+            "██¢   █¢¢¢¢¢¢¢█¢¢¢¢█",
+            "██¢¢¢¢¢¢¢¢█¢¢¢¢¢¢█¢█",
+            "███████ ██████████¢█",
             "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
             "████████████████████"
           }
         )
         .setSpawn(new Game_Classes.Coordinate(40, 520))
         .setColor(wallGreen)
-        .setPortal(new Game_Classes.Portal(580, 30, 120, 20))
+        .setPortal(new Game_Classes.Portal(40, 190, 120, 20))
         .setAttribute(Game_Classes.WorldAttribute.RISING)
         .setRisingWater(// prettier-ignore
           new Game_Classes.RisingWater()
             .setColor(new Color(55, 229, 220))
             .setSpeed(1))
+        .setPuffers(new Game_Classes.Puffer[] { new Game_Classes.Puffer(80, 280), new Game_Classes.Puffer(80, 80) })
+        .setSpearShooters(
+          new Game_Classes.SpearShooter[] {
+            new Game_Classes.SpearShooter(600, 360, Game_Classes.Direction.DOWN),
+            new Game_Classes.SpearShooter(280, 480, Game_Classes.Direction.UP),
+            new Game_Classes.SpearShooter(0, 320, Game_Classes.Direction.RIGHT),
+            new Game_Classes.SpearShooter(480, 0, Game_Classes.Direction.DOWN),
+            new Game_Classes.SpearShooter(400, 200, Game_Classes.Direction.UP)
+          }
+        )
+        .setBats(new Game_Classes.Bat[] { new Game_Classes.Bat(600, 80), new Game_Classes.Bat(560, 240) })
     }
   );
 }

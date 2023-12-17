@@ -585,6 +585,8 @@ public class Game_Methods {
     }
     if (Keys.num7JustPressed) {
       worldCollection.setWorldIndex(6);
+      Game_Classes.WorldV2 world = worldCollection.getCurrentWorld();
+      world.risingWater.h = 20;
       handleTransferToLevel(player, worldCollection);
     }
     if (Keys.num8JustPressed) {

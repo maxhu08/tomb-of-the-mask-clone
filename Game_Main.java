@@ -91,15 +91,6 @@ public class Game_Main extends Drawing {
         // player
         Game_Methods.drawPlayer(g2d, player);
 
-        // rising water
-        Game_Methods.drawRisingWater(g2d, currentWorld);
-
-        // ui
-        Game_Methods.displayCurrentWorld(g2d, worldCollection.getWorldIndex());
-        Game_Methods.displayPlayerScore(g2d, player.score);
-        Game_Methods.displayPlayerHealth(g2d, player);
-        Game_Methods.displayDifficultyText(g2d);
-
         // enemies
         Game_Methods.drawSpearShooters(g2d, currentWorld.spearShooters);
         Game_Methods.shootSpearShooters(currentWorld.spearShooters, currentWorld, shootSpears);
@@ -108,6 +99,15 @@ public class Game_Main extends Drawing {
         Game_Methods.drawBats(g2d, currentWorld.bats, animate);
         Game_Methods.moveBats(currentWorld.bats, currentWorld);
         Game_Methods.drawPuffers(g2d, currentWorld.puffers, currentWorld.col, pufferExpand);
+
+        // rising water
+        Game_Methods.drawRisingWater(g2d, currentWorld);
+
+        // ui
+        Game_Methods.displayCurrentWorld(g2d, worldCollection.getWorldIndex());
+        Game_Methods.displayPlayerScore(g2d, player.score);
+        Game_Methods.displayPlayerHealth(g2d, player);
+        Game_Methods.displayDifficultyText(g2d);
 
         double now = System.currentTimeMillis();
         if (now - lastAnimationTime >= animateInterval) {
