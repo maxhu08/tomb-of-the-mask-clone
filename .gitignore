@@ -1,0 +1,8 @@
+*.ctxt
+*.class
+.DS_Store
+launch4j.log
+config.xml
+
+# Game_Main$*.class
+# Game_Classes$*.class
