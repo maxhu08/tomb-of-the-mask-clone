@@ -607,6 +607,8 @@ public class Game_Methods {
   }
 
   public static void handleDev(Game_Classes.Player player, Game_Classes.WorldCollectionV2 worldCollection) {
+    if (!Game_Main.devMode) return;
+
     if (Keys.gJustPressed) {
       Runner.project.drawGrid = !Runner.project.drawGrid;
     }

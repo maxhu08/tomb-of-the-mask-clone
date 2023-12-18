@@ -72,6 +72,8 @@ public class Game_Main extends Drawing {
   double pufferExpandInterval = 3000;
 
   static double lastRiseTime = System.currentTimeMillis();
+
+  static boolean devMode = false;
   static boolean devShowEnemyHitbox = false;
 
   static boolean paused = false;
@@ -207,7 +209,8 @@ public class Game_Main extends Drawing {
           }
           difficultyText = Game_Methods.getDifficultyText(difficulty);
         }
-      )
+      ),
+      new Game_Classes.MenuOption(() -> devMode ? "[on] dev mode" : "[off] dev mode", () -> devMode = !devMode)
     }
   );
 
@@ -256,7 +259,7 @@ public class Game_Main extends Drawing {
     new Game_Classes.MenuOption[] {
       new Game_Classes.MenuOption(() -> "menu", () -> Game_Classes.StateManager.setState(Game_Classes.State.MENU)),
       new Game_Classes.MenuOption(() -> "made by Max Hu", () -> {}),
-      new Game_Classes.MenuOption(() -> "version: pre-v1.0.0a", () -> {})
+      new Game_Classes.MenuOption(() -> "version: v1.0.0", () -> {})
     }
   );
 }
