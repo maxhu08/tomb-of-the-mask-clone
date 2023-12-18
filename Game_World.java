@@ -267,25 +267,25 @@ public class Game_World {
         .setLayout(
           new String[] {
             "████████████████████",
-            "█¢¢¢¢█¢¢¢¢¢¢¢¢█¢¢¢¢█",
-            "█¢¢¢¢¢¢¢¢█¢¢¢¢¢¢¢¢¢█",
-            "████¢███████████████",
-            "█¢¢¢¢█¢¢¢¢¢█¢¢¢█¢¢¢ ",
-            "█¢¢¢¢¢¢K¢ ¢¢¢█¢¢¢¢¢ ",
+            "█¢¢¢█   ¢¢¢¢¢¢█    █",
+            "█¢¢¢¢¢¢¢¢█   ¢¢¢¢¢¢█",
+            "███¢████████████████",
+            "█¢¢¢ ¢¢¢¢¢¢█¢¢¢█¢¢  ",
+            "█¢¢¢¢¢¢¢K█¢¢¢█¢¢¢¢  ",
             "█████████████████¢██",
-            "█¢¢¢¢¢¢¢¢¢¢¢█¢¢¢¢¢¢█",
-            "█¢¢¢███████¢¢¢¢█¢¢¢█",
-            "█¢█¢█¢¢¢¢██¢¢¢¢¢¢¢██",
-            "█¢¢¢█¢██¢¢██████████",
+            "█¢¢¢¢¢¢¢¢¢¢¢█    ¢ █",
+            "█¢  █    ██¢   █ ¢ █",
+            "█¢█ █¢¢¢¢██¢¢¢¢¢¢¢██",
+            "█¢  █¢██¢¢██████████",
             "█¢¢¢¢¢███¢¢█¢¢¢¢¢███",
-            "███████¢██¢¢¢█ █¢¢¢█",
-            "█¢¢¢¢¢¢¢¢█████████¢█",
+            "███████ ██¢¢¢█ █¢¢¢█",
+            "█        █████████¢█",
             "████████████████████"
           }
         )
         .setSpawn(new Game_Classes.Coordinate(720, 520))
         .setColor(wallGreen)
-        .setPortal(new Game_Classes.Portal(40, 190, 120, 20))
+        .setPortal(new Game_Classes.Portal(620, 30, 120, 20))
         .setAttribute(Game_Classes.WorldAttribute.RISING)
         .setRisingWater(// prettier-ignore
           new Game_Classes.RisingWater()
@@ -299,10 +299,23 @@ public class Game_World {
             new Game_Classes.SpearShooter(760, 160, Game_Classes.Direction.LEFT),
             new Game_Classes.SpearShooter(760, 200, Game_Classes.Direction.LEFT),
             //
-            new Game_Classes.SpearShooter(360, 200, Game_Classes.Direction.RIGHT)
+            new Game_Classes.SpearShooter(360, 200, Game_Classes.Direction.RIGHT),
+            //
+            new Game_Classes.SpearShooter(200, 320, Game_Classes.Direction.UP),
+            new Game_Classes.SpearShooter(240, 320, Game_Classes.Direction.UP),
+            new Game_Classes.SpearShooter(280, 320, Game_Classes.Direction.UP),
+            new Game_Classes.SpearShooter(320, 320, Game_Classes.Direction.UP),
+            //
+            new Game_Classes.SpearShooter(160, 160, Game_Classes.Direction.LEFT)
           }
         )
-      // .setBats(new Game_Classes.Bat[] { new Game_Classes.Bat(600, 80), new Game_Classes.Bat(560, 240) })
+        .setBats(
+          new Game_Classes.Bat[] {
+            new Game_Classes.Bat(80, 200),
+            //
+            new Game_Classes.Bat(280, 40)
+          }
+        )
     }
   );
 }
