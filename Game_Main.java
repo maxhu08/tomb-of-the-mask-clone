@@ -8,6 +8,7 @@ public class Game_Main extends Drawing {
   static Game_Classes.Player player = new Game_Classes.Player(40, 40, 20, false);
   static Game_Classes.Difficulty difficulty = Game_Classes.Difficulty.EASY;
   static Game_Classes.WorldCollectionV2 worldCollection = new Game_World().worldCollectionV2;
+  static int timeElapsed = 0;
 
   public static void main(String[] args) {
     ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -23,6 +24,17 @@ public class Game_Main extends Drawing {
       },
       initialRiseDelay,
       riseInterval,
+      TimeUnit.MILLISECONDS
+    );
+
+    scheduler.scheduleAtFixedRate(
+      () -> {
+        if (playing) {
+          timeElapsed += 1;
+        }
+      },
+      0,
+      1,
       TimeUnit.MILLISECONDS
     );
 
@@ -62,12 +74,15 @@ public class Game_Main extends Drawing {
   static double lastRiseTime = System.currentTimeMillis();
   static boolean devShowEnemyHitbox = false;
 
+  static boolean paused = false;
+  static boolean playing = false;
+
   @Override
   public void drawPerFrame(Graphics2D g2d) {
     Game_Methods.handleDev(player, worldCollection);
 
     if (Keys.pJustPressed && Game_Classes.StateManager.getState() == Game_Classes.State.GAME) {
-      Game_Classes.StateManager.setState(Game_Classes.State.PAUSED);
+      Game_Methods.handlePause();
     }
 
     switch (Game_Classes.StateManager.getState()) {
@@ -108,6 +123,7 @@ public class Game_Main extends Drawing {
         Game_Methods.displayPlayerScore(g2d, player.score);
         Game_Methods.displayPlayerHealth(g2d, player);
         Game_Methods.displayDifficultyText(g2d);
+        Game_Methods.displayTimeElapsed(g2d, timeElapsed);
 
         double now = System.currentTimeMillis();
         if (now - lastAnimationTime >= animateInterval) {
@@ -140,8 +156,8 @@ public class Game_Main extends Drawing {
         Game_Methods.handleMenuSelection(settingsMenu);
         break;
       case OTHER:
-        break;
-      case FINISH:
+        Game_Methods.drawMenu(g2d, otherMenu, "other");
+        Game_Methods.handleMenuSelection(otherMenu);
         break;
       case PAUSED:
         Game_Methods.drawMenu(g2d, pausedMenu, "paused");
@@ -155,9 +171,11 @@ public class Game_Main extends Drawing {
       new Game_Classes.MenuOption(
         () -> "start",
         () -> {
+          timeElapsed = 0;
           player.reset();
           worldCollection = new Game_World().worldCollectionV2;
           Game_Classes.StateManager.setState(Game_Classes.State.GAME);
+          playing = true;
         }
       ),
       new Game_Classes.MenuOption(() -> "settings", () -> Game_Classes.StateManager.setState(Game_Classes.State.SETTINGS)),
@@ -200,6 +218,7 @@ public class Game_Main extends Drawing {
           player.reset();
           worldCollection = new Game_World().worldCollectionV2;
           Game_Classes.StateManager.setState(Game_Classes.State.GAME);
+          timeElapsed = 0;
         }
       ),
       new Game_Classes.MenuOption(
@@ -207,6 +226,7 @@ public class Game_Main extends Drawing {
         () -> {
           player.reset();
           Game_Classes.StateManager.setState(Game_Classes.State.MENU);
+          timeElapsed = 0;
         }
       )
     }
@@ -214,8 +234,28 @@ public class Game_Main extends Drawing {
 
   Game_Classes.Menu pausedMenu = new Game_Classes.Menu(
     new Game_Classes.MenuOption[] {
-      new Game_Classes.MenuOption(() -> "unpause", () -> Game_Classes.StateManager.setState(Game_Classes.State.GAME)),
-      new Game_Classes.MenuOption(() -> "menu", () -> Game_Classes.StateManager.setState(Game_Classes.State.MENU))
+      new Game_Classes.MenuOption(
+        () -> "unpause",
+        () -> {
+          Game_Classes.StateManager.setState(Game_Classes.State.GAME);
+          playing = true;
+        }
+      ),
+      new Game_Classes.MenuOption(
+        () -> "menu",
+        () -> {
+          Game_Classes.StateManager.setState(Game_Classes.State.MENU);
+          timeElapsed = 0;
+        }
+      )
+    }
+  );
+
+  Game_Classes.Menu otherMenu = new Game_Classes.Menu(
+    new Game_Classes.MenuOption[] {
+      new Game_Classes.MenuOption(() -> "menu", () -> Game_Classes.StateManager.setState(Game_Classes.State.MENU)),
+      new Game_Classes.MenuOption(() -> "made by Max Hu", () -> {}),
+      new Game_Classes.MenuOption(() -> "version: pre-v1.0.0a", () -> {})
     }
   );
 }

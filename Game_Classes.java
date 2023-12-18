@@ -10,7 +10,6 @@ public class Game_Classes {
     GAME,
     DIED,
     OTHER,
-    FINISH,
     PAUSED
   }
 

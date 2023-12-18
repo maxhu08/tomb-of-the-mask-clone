@@ -540,6 +540,21 @@ public class Game_Methods {
     }
   }
 
+  public static void displayTimeElapsed(Graphics2D g2d, int time) {
+    g2d.setColor(Color.WHITE);
+    g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+
+    g2d.drawString(formatTime(time), 540, 580);
+  }
+
+  public static String formatTime(int time) {
+    int minutes = (time / 1000) / 60;
+    int seconds = (time / 1000) % 60;
+    int milliseconds = time % 1000;
+
+    return String.format("%02d:%02d.%03d", minutes, seconds, milliseconds);
+  }
+
   public static void handleTransferToLevel(Game_Classes.Player player, Game_Classes.WorldCollectionV2 worldCollection) {
     if (Game_Main.difficulty == Game_Classes.Difficulty.EASY) {
       player.setHealth(3);
@@ -550,6 +565,13 @@ public class Game_Methods {
     player.yV = 0;
     player.isMoving = false;
     player.setHasMoved(false);
+  }
+
+  public static void handlePause() {
+    Game_Classes.StateManager.setState(Game_Classes.State.PAUSED);
+
+    Game_Main.paused = !Game_Main.paused;
+    Game_Main.playing = false;
   }
 
   public static void handleDev(Game_Classes.Player player, Game_Classes.WorldCollectionV2 worldCollection) {
