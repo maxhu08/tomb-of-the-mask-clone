@@ -6,6 +6,7 @@ public class Game_World {
   Color wallDarkPurple = new Color(124, 86, 206);
   Color wallBlue = new Color(0, 70, 168);
   Color wallGreen = new Color(122, 175, 42);
+  Color wallFinal = new Color(60, 196, 157);
 
   // template
   // "████████████████████",
@@ -271,7 +272,7 @@ public class Game_World {
             "█¢¢¢¢¢¢¢¢█   ¢¢¢¢¢¢█",
             "███¢████████████████",
             "█¢¢¢ ¢¢¢¢¢¢█¢¢¢█¢¢  ",
-            "█¢¢¢¢¢¢¢K█¢¢¢█¢¢¢¢  ",
+            "█¢¢¢¢¢¢¢K ¢¢¢█¢¢¢¢  ",
             "█████████████████¢██",
             "█¢¢¢¢¢¢¢¢¢¢¢█    ¢ █",
             "█¢  █    ██¢   █ ¢ █",
@@ -314,6 +315,44 @@ public class Game_World {
             new Game_Classes.Bat(80, 200),
             //
             new Game_Classes.Bat(280, 40)
+          }
+        ),
+      // * WORLD 9 - FINAL *
+      new Game_Classes.WorldV2()
+        .setLayout(
+          new String[] {
+            "████████████████████",
+            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
+            "█¢████████████████¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢█              █¢█",
+            "█¢████████████████¢█",
+            "█¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢¢█",
+            "████████████████████"
+          }
+        )
+        .setSpawn(new Game_Classes.Coordinate(720, 520))
+        .setColor(wallFinal)
+        .setPortal(new Game_Classes.Portal(620, 30, 120, 20))
+        .setAttribute(Game_Classes.WorldAttribute.FINAL)
+        .setBats(
+          new Game_Classes.Bat[] {
+            new Game_Classes.Bat(120, 440),
+            new Game_Classes.Bat(160, 400),
+            new Game_Classes.Bat(200, 360),
+            new Game_Classes.Bat(240, 320),
+            new Game_Classes.Bat(280, 280),
+            new Game_Classes.Bat(320, 240),
+            new Game_Classes.Bat(360, 200),
+            new Game_Classes.Bat(400, 160),
+            new Game_Classes.Bat(440, 120)
           }
         )
     }

@@ -109,15 +109,17 @@ public class Game_Methods {
         player.score += c.points;
       }
     }
-    if (isColliding(player, currentWorld.key)) {
-      currentWorld.key.collected = true;
-      currentWorld.portal.open = true;
-    }
-    if (isColliding(player, currentWorld.portal) && currentWorld.portal.open) {
-      worldCollection.setNextWorldIndex();
+    if (currentWorld.attribute != Game_Classes.WorldAttribute.FINAL) {
+      if (isColliding(player, currentWorld.key)) {
+        currentWorld.key.collected = true;
+        currentWorld.portal.open = true;
+      }
+      if (isColliding(player, currentWorld.portal) && currentWorld.portal.open) {
+        worldCollection.setNextWorldIndex();
 
-      handleTransferToLevel(player, worldCollection);
-      return;
+        handleTransferToLevel(player, worldCollection);
+        return;
+      }
     }
     if (currentWorld.attribute == Game_Classes.WorldAttribute.RISING) {
       if (isColliding(player, currentWorld.risingWater) && !player.immune) {
@@ -225,7 +227,10 @@ public class Game_Methods {
     }
   }
 
-  public static void drawPortal(Graphics2D g2d, Game_Classes.Portal portal) {
+  public static void drawPortal(Graphics2D g2d, Game_Classes.WorldV2 currentWorld) {
+    if (currentWorld.attribute == Game_Classes.WorldAttribute.FINAL) return;
+
+    Game_Classes.Portal portal = currentWorld.portal;
     if (portal.open) {
       g2d.setColor(portal.col);
     } else {
@@ -234,7 +239,11 @@ public class Game_Methods {
     g2d.fillRect(portal.x, portal.y, portal.w, portal.h);
   }
 
-  public static void drawKey(Graphics2D g2d, Game_Classes.Key key) {
+  public static void drawKey(Graphics2D g2d, Game_Classes.WorldV2 currentWorld) {
+    if (currentWorld.attribute == Game_Classes.WorldAttribute.FINAL) return;
+
+    Game_Classes.Key key = currentWorld.key;
+
     if (key.collected) return;
 
     g2d.setColor(key.col);
@@ -319,6 +328,15 @@ public class Game_Methods {
     }
   }
 
+  public static void drawFinalWorldText(Graphics2D g2d, Game_Classes.WorldV2 currentWorld) {
+    if (currentWorld.attribute != Game_Classes.WorldAttribute.FINAL) return;
+    g2d.setColor(Color.WHITE);
+    g2d.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+
+    g2d.drawString("👍 you completed the game in " + formatTime(Game_Main.timeElapsed), 240, 260);
+    g2d.drawString("thanks for playing", 340, 280);
+  }
+
   public static void moveSpearProjectiles(Game_Classes.WorldV2 world) {
     for (int i = 0; i < world.spears.size(); i++) {
       Game_Classes.SpearProjectile spear = world.spears.get(i);
@@ -394,6 +412,20 @@ public class Game_Methods {
       for (int j = 0; j < currentWorld.walls.size(); j++) {
         Game_Classes.Wall w = currentWorld.walls.get(j);
         if (isColliding(bat, w)) {
+          switch (bat.direction) {
+            case LEFT:
+              bat.direction = Game_Classes.BatDirection.RIGHT;
+              break;
+            case RIGHT:
+              bat.direction = Game_Classes.BatDirection.LEFT;
+              break;
+          }
+        }
+      }
+
+      for (int j = 0; j < currentWorld.spearShooters.length; j++) {
+        Game_Classes.SpearShooter s = currentWorld.spearShooters[j];
+        if (isColliding(bat, s)) {
           switch (bat.direction) {
             case LEFT:
               bat.direction = Game_Classes.BatDirection.RIGHT;
@@ -613,6 +645,10 @@ public class Game_Methods {
     }
     if (Keys.num8JustPressed) {
       worldCollection.setWorldIndex(7);
+      handleTransferToLevel(player, worldCollection);
+    }
+    if (Keys.num9JustPressed) {
+      worldCollection.setWorldIndex(8);
       handleTransferToLevel(player, worldCollection);
     }
   }

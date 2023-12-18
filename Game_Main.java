@@ -29,7 +29,7 @@ public class Game_Main extends Drawing {
 
     scheduler.scheduleAtFixedRate(
       () -> {
-        if (playing) {
+        if (playing && worldCollection.getCurrentWorld().attribute != Game_Classes.WorldAttribute.FINAL) {
           timeElapsed += 1;
         }
       },
@@ -98,10 +98,11 @@ public class Game_Main extends Drawing {
         Game_Methods.updatePlayerMovement(player, currentWorld, worldCollection, pufferExpand);
 
         // world
-        Game_Methods.drawKey(g2d, currentWorld.key);
+        Game_Methods.drawKey(g2d, currentWorld);
         Game_Methods.drawCoins(g2d, currentWorld.coins, animate, currentWorld);
         Game_Methods.drawWalls(g2d, currentWorld);
-        Game_Methods.drawPortal(g2d, currentWorld.portal);
+        Game_Methods.drawPortal(g2d, currentWorld);
+        Game_Methods.drawFinalWorldText(g2d, currentWorld);
 
         // player
         Game_Methods.drawPlayer(g2d, player);
